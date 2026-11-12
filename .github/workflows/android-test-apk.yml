@@ -51,12 +51,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes ripgrep libxml2-utils cmake ninja-build pkg-config libssl-dev
           "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --install 'platforms;android-35' 'platforms;android-36' 'build-tools;35.0.0' platform-tools
-          ./platforms/android/install-ndk.sh
-          ./scripts/rustup-install.sh aarch64-linux-android
-          ./platforms/windows/bootstrap-vcpkg.sh
+          bash platforms/android/install-ndk.sh
+          bash scripts/rustup-install.sh aarch64-linux-android
+          bash platforms/windows/bootstrap-vcpkg.sh
       - name: 检查差异和决策笔记
         run: |
-          git diff --check HEAD~2 HEAD
+          git diff --check 917711c944deeae5d97d30b8a3a206be51368d4a HEAD
           node .agents/skills/write-notes-like-deepseek/scripts/verify-agent-note-tree.ts
           node .agents/skills/write-notes-like-deepseek/scripts/verify-agent-note-format.ts
           node .agents/skills/write-notes-like-deepseek/scripts/verify-archived-agent-notes.ts
